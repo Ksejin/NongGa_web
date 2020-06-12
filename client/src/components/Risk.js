@@ -6,6 +6,7 @@ import orange from "../images/orange.png";
 import green from "../images/green.png";
 import Axios from "axios";
 
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -21,12 +22,11 @@ const ContentsContainer = styled.div``;
 
 const ContentsArea = styled.div``;
 
-// const input_data = [
-//     { index: 0, temperature: 1, rainfall: 0, daylight: 2 },
-//     { index: 1, temperature: 2, rainfall: 0, daylight: 2 },
-//     { index: 2, temperature: 2, rainfall: 0, daylight: 2 },
-//     { index: 3, temperature: 2, rainfall: 0, daylight: 2 },
-// ];
+const today = new Date()
+const yesterday = new Date(today)
+yesterday.setDate(yesterday.getDate() -1)
+const date = yesterday.toDateString()
+
 
 function item_mapping(row) {
     switch (row) {
@@ -69,11 +69,13 @@ function item_name(row) {
     return row;
 }
 
-function TableData({ Data }) {
+function TableData({ data }) {
+    console.log(data);
+
     return (
         <React.Fragment>
-            {Data &&
-                Data.map((item) => (
+            {data &&
+                data.map((item) => (
                     <tr key={item.index}>
                         <td>{item_name(item.index)}</td>
                         <td>
@@ -92,10 +94,11 @@ function TableData({ Data }) {
 }
 
 export default function Risk() {
-    const [Data, setData] = useState([null]);
+    const [Data, setData] = useState(null);
     useEffect(() => {
         Axios.get("http://localhost:5000").then((response) => {
             setData(response.data);
+            console.log(response.data);
         });
     }, []);
 
@@ -111,7 +114,7 @@ export default function Risk() {
 
             <ContentsContainer>
                 <ContentsArea>
-                    <p>6월 12일</p>
+                    <p>{date}</p>
                 </ContentsArea>
             </ContentsContainer>
 
@@ -124,9 +127,7 @@ export default function Risk() {
                         <th>일조시간</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <TableData data={Data} />
-                </tbody>
+                <tbody>{Data && <TableData data={Data} />}</tbody>
             </Table>
         </Container>
     );
