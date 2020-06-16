@@ -55,7 +55,7 @@ export default function Main() {
         <Container>
             <MainHeader></MainHeader>
             <MainContentContainer>
-                <StyledLink to="/predict">
+                <StyledLink to="/onion">
                     <PageButton>농산물가격예측</PageButton>
                 </StyledLink>
                 <StyledLink to="/risk">
