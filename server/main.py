@@ -29,10 +29,10 @@ def index():
 
 @app.route('/predict')
 def predict():
-    start = time.time()
-    pepper_price = [10300, 10700, 10900, 11300, 11500, 11000, 10700]
-    garlic_price = [3300, 3700, 4200, 4500, 4500, 4500, 4500]
-    onion_price = [7700, 7300, 7100, 7000, 7200, 7700, 8300]
+    # start = time.time()
+    pepper_price = [61000, 59800, 60600, 57400, 56800, 55400, 53000]
+    garlic_price = [30800, 31200, 31200, 31200, 31200, 31200, 31200]
+    onion_price = [14600, 14400, 14800, 13800, 14000, 13600, 13200]
 
     product = ['pepper','garlic','onion']
 
@@ -94,7 +94,6 @@ def predict():
                 each_list = product_price_day1[p][i][m][1:]
                 each_list.append(prediction)
                 each_iter.append(each_list)
-
             input_dict = {"f0":[2020], "f1":[6], "f2": [20]}
             for j in range(len(product_price_day1[p][i][4])):
                 input_dict["f{}".format(j+3)] = [product_price_day1[p][i][4][j]]
@@ -113,7 +112,7 @@ def predict():
         product_price_day2.append(total_list)
 
     print('day2 done')
-
+    # print(product_price_day2)
 
     product_price_day3 = []
     for p in range(len(product_price_day2)):
@@ -151,8 +150,60 @@ def predict():
         product_price_day3.append(total_list)
 
     print('day3 done')
-    print(product_price_day3)
-    print('time: ', time.time() - start)
+    # print(product_price_day3)
+    # print('time: ', time.time() - start)
+
+    pepper_dict = {}
+    onion_dict = {}
+    garlic_dict = {}
+
+
+    for p in range(len(product_price_day3)):
+        xgboost_dict = {}
+        gboost_dict = {}
+        lightgbm_dict = {}
+        lasso_dict = {}
+        keras_dict = {}
+
+        for i in range(10):
+            for m in range(len(models)):
+                # print(p,i,m,product_price_day1[p][i][m])
+                if m == 0:
+                    xgboost_dict[str(i)] = product_price_day3[p][i][m] 
+                if m == 1:
+                    gboost_dict[str(i)] = product_price_day3[p][i][m]
+                if m == 2:
+                    lightgbm_dict[str(i)] = product_price_day3[p][i][m]
+                if m == 3:
+                    lasso_dict[str(i)] = product_price_day3[p][i][m]
+            keras_dict[str(i)] = product_price_day3[p][i][4]
+        if p == 0:
+            pepper_dict['gboost'] = gboost_dict
+            pepper_dict['xgboost'] = xgboost_dict
+            pepper_dict['lasso'] = lasso_dict
+            pepper_dict['lightgbm'] = lightgbm_dict
+            pepper_dict['keras'] = keras_dict
+        elif p == 1:
+            garlic_dict['gboost'] = gboost_dict
+            garlic_dict['xgboost'] = xgboost_dict
+            garlic_dict['lasso'] = lasso_dict
+            garlic_dict['lightgbm'] = lightgbm_dict
+            garlic_dict['keras'] = keras_dict
+        elif p == 2:
+            onion_dict['gboost'] = gboost_dict
+            onion_dict['xgboost'] = xgboost_dict
+            onion_dict['lasso'] = lasso_dict
+            onion_dict['lightgbm'] = lightgbm_dict
+            onion_dict['keras'] = keras_dict
+
+    data = {}
+    data["pepper"] = pepper_dict
+    data["onion"] = onion_dict
+    data["garlic"] = garlic_dict
+
+    with open('test.json', 'w', encoding="utf-8") as make_file:
+        json.dump(data, make_file, ensure_ascii=False, indent="\t")
+
     return '0'
 
 if __name__ == '__main__':
