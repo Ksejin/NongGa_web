@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Table from "react-bootstrap/Table";
-import red from "../images/red.png";
-import orange from "../images/orange.png";
-import green from "../images/green.png";
+import red from "../images/Red.png";
+import yellow from "../images/Yellow.png";
+import green from "../images/Green.png";
+import blue from "../images/Blue.png";
+import darkBlue from "../images/DarkBlue.png";
 import Axios from "axios";
 
 
 const Container = styled.div`
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
+    
 `;
+
+const tableStyle = {
+    width: '60%',
+}
 
 const Header = styled.div``;
 
@@ -34,10 +42,16 @@ function item_mapping(row) {
             return (row = green);
 
         case 1:
-            return (row = orange);
+            return (row = yellow);
 
         case 2:
             return (row = red);
+
+        case 3:
+            return (row = blue);
+
+        case 4:
+            return (row = darkBlue);
 
         default:
             break;
@@ -76,16 +90,16 @@ function TableData({ data }) {
         <React.Fragment>
             {data &&
                 data.map((item) => (
-                    <tr key={item.index}>
-                        <td>{item_name(item.index)}</td>
+                    <tr key={item.index} >
+                        <td align="center">{item_name(item.index) }</td>
                         <td>
-                            <img src={item_mapping(item.temperature)} />
+                            <img src={item_mapping(item.temperature)} width='100px'/>
                         </td>
                         <td>
-                            <img src={item_mapping(item.rainfall)} />
+                            <img src={item_mapping(item.rainfall)} width='100px'/>
                         </td>
                         <td>
-                            <img src={item_mapping(item.daylight)} />
+                            <img src={item_mapping(item.daylight)} width='100px'/>
                         </td>
                     </tr>
                 ))}
@@ -108,7 +122,13 @@ export default function Risk() {
                 <p>
                     농산물 주산지 날씨데이터를 이용한 농산물 위험도 분석입니다.
                 </p>
-                <p>안정 - 초록, 주의 - 주황, 위험 - 빨강으로 표시됩니다.</p>
+                <p> 
+                    평년이하(위험) - 진한파랑, 
+                    평년이하(주의) - 파랑, 
+                    안정 - 초록, 
+                    평년이상(주의) - 노랑, 
+                    평년이상(위험) - 빨강
+                </p>
                 <p>고추 - 안동, 배추와 무 - 고창, 양파 - 신안, 마늘 - 의성</p>
             </Header>
 
@@ -118,16 +138,17 @@ export default function Risk() {
                 </ContentsArea>
             </ContentsContainer>
 
-            <Table striped bordered hover>
+            <Table style={tableStyle}
+            striped bordered hover>
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>구분</th>
                         <th>기온</th>
                         <th>강수량</th>
                         <th>일조시간</th>
                     </tr>
                 </thead>
-                <tbody>{Data && <TableData data={Data} />}</tbody>
+                <tbody align="center">{Data && <TableData data={Data} />}</tbody>
             </Table>
         </Container>
     );

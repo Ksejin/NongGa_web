@@ -85,35 +85,57 @@ average = average[['region','temperature','rainfall', 'daylight']]
 print(data)
 print(average)
 
-temperature = abs(data['temperature'] - average['temperature'])
+temperature = data['temperature'] - average['temperature']
 print(temperature)
 for i in temperature.index:
-    if temperature[i] <= 1.5:
+    if temperature[i] <= -2.0:
+        temperature[i] = 4
+    elif -2.0 < temperature[i] <= -1.0:
+        temperature[i] = 3
+    elif -1.0 < temperature[i] < 1.0:
         temperature[i] = 0
-    elif 1.5 < temperature[i] <= 3.0:
+    elif 1.0 <= temperature[i] < 2.0:
         temperature[i] = 1
-    else:
+    elif temperature[i] >= 2.0:
         temperature[i] = 2
+    
+    else:
+        temperature[i] = 0
 
-rainfall = abs(data['rainfall'] - average['rainfall'])
+rainfall = data['rainfall'] - average['rainfall']
 print(rainfall)
 for i in rainfall.index:
-    if rainfall[i] <= 3.0:
+    if rainfall[i] <= -6.0:
+        rainfall[i] = 4
+    elif -6.0 < rainfall[i] <= -3.0:
+        rainfall[i] = 3
+    elif -3.0 < rainfall[i] < 3.0:
         rainfall[i] = 0
-    elif 3.0 < rainfall[i] <= 6.0:
+    elif 3.0 <= rainfall[i] < 6.0:
         rainfall[i] = 1
-    else:
+    elif rainfall[i] >= 6.0:
         rainfall[i] = 2
+    
+    else:
+        rainfall[i] = 0
 
-daylight = abs(data['daylight'] - average['daylight'])
+daylight = data['daylight'] - average['daylight']
 print(daylight)
 for i in daylight.index:
-    if daylight[i] <= 1.5:
+    if daylight[i] <= -2.0:
+        daylight[i] = 4
+    elif -2.0 < daylight[i] <= -1.0:
+        daylight[i] = 3
+    elif -1.0 < daylight[i] < 1.0:
         daylight[i] = 0
-    elif 1.5 < daylight[i] <= 3.0:
+    elif 1.0 <= daylight[i] < 2.0:
         daylight[i] = 1
-    else:
+    elif daylight[i] >= 2.0:
         daylight[i] = 2
+    
+    else:
+        daylight[i] = 0
+daylight
 
 array = {'temperature': temperature,
         'rainfall': rainfall,
