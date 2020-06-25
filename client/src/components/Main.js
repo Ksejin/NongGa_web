@@ -58,9 +58,9 @@ export default function Main() {
                 <StyledLink to="/onion">
                     <PageButton>농산물가격예측</PageButton>
                 </StyledLink>
-                <StyledLink to="/risk">
+                {/* <StyledLink to="/risk">
                     <PageButton>농산물위험도분석</PageButton>
-                </StyledLink>
+                </StyledLink> */}
             </MainContentContainer>
         </Container>
     );

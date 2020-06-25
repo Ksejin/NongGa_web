@@ -208,11 +208,68 @@ def predict():
 
 @app.route('/get_data')
 def get_data():
+    result = {}
     with open('test.json') as json_file:
-        json_data = json.loads(json_file)
-        for i in json_data["pepper"]["lasso"]:
-            print(i)
+        json_data = json.load(json_file)
+        p_four = 0
+        p_five = 0
+        p_six = 0
+        for i in range(len(json_data["pepper"]["lasso"])):
+            p_four += json_data["pepper"]["lasso"][str(i)][4]
+            p_five += json_data["pepper"]["lasso"][str(i)][5]
+            p_six += json_data["pepper"]["lasso"][str(i)][6]
+        for i in range(len(json_data["pepper"]["keras"])):
+            p_four += json_data["pepper"]["lasso"][str(i)][4]
+            p_five += json_data["pepper"]["lasso"][str(i)][5]
+            p_six += json_data["pepper"]["lasso"][str(i)][6]
+        for i in range(len(json_data["pepper"]["lightgbm"])):
+            p_four += json_data["pepper"]["lasso"][str(i)][4]
+            p_five += json_data["pepper"]["lasso"][str(i)][5]
+            p_six += json_data["pepper"]["lasso"][str(i)][6]
+        result["peppr"] = [json_data["pepper"]["lasso"][str(i)][0],json_data["pepper"]["lasso"][str(i)][1],json_data["pepper"]["lasso"][str(i)][2],json_data["pepper"]["lasso"][str(i)][3], int(p_four/30), int(p_five/30), int(p_six/30)]
 
+        o_four = 0
+        o_five = 0
+        o_six = 0
+        for i in range(len(json_data["onion"]["lasso"])):
+            o_four += json_data["onion"]["lasso"][str(i)][4]
+            o_five += json_data["onion"]["lasso"][str(i)][5]
+            o_six += json_data["onion"]["lasso"][str(i)][6]
+        for i in range(len(json_data["onion"]["keras"])):
+            o_four += json_data["onion"]["lasso"][str(i)][4]
+            o_five += json_data["onion"]["lasso"][str(i)][5]
+            o_six += json_data["onion"]["lasso"][str(i)][6]
+        for i in range(len(json_data["onion"]["lightgbm"])):
+            o_four += json_data["onion"]["lasso"][str(i)][4]
+            o_five += json_data["onion"]["lasso"][str(i)][5]
+            o_six += json_data["onion"]["lasso"][str(i)][6]
+
+        result["onion"] = [json_data["onion"]["lasso"][str(i)][0],json_data["onion"]["lasso"][str(i)][1],json_data["onion"]["lasso"][str(i)][2],json_data["onion"]["lasso"][str(i)][3], int(o_four/30), int(o_five/30), int(o_six/30)]
+
+        g_four = 0
+        g_five = 0
+        g_six = 0
+        for i in range(len(json_data["garlic"]["lasso"])):
+            g_four += json_data["garlic"]["lasso"][str(i)][4]
+            g_five += json_data["garlic"]["lasso"][str(i)][5]
+            g_six += json_data["garlic"]["lasso"][str(i)][6]
+        for i in range(len(json_data["garlic"]["keras"])):
+            g_four += json_data["garlic"]["lasso"][str(i)][4]
+            g_five += json_data["garlic"]["lasso"][str(i)][5]
+            g_six += json_data["garlic"]["lasso"][str(i)][6]
+        for i in range(len(json_data["garlic"]["lightgbm"])):
+            g_four += json_data["garlic"]["lasso"][str(i)][4]
+            g_five += json_data["garlic"]["lasso"][str(i)][5]
+            g_six += json_data["garlic"]["lasso"][str(i)][6]
+        result["garlic"] = [json_data["garlic"]["lasso"][str(i)][0],json_data["garlic"]["lasso"][str(i)][1],json_data["garlic"]["lasso"][str(i)][2],json_data["garlic"]["lasso"][str(i)][3], int(g_four/30), int(g_five/30), int(g_six/30)]
+
+
+    print(result)
+
+
+
+
+    return json.dumps(result)
         #onion / garlic
 
 if __name__ == '__main__':

@@ -5,29 +5,38 @@ import styled from "styled-components";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import Axios from "axios";
+var points = [];
 
 export default function Onion() {
-  const [Data, setData] = useState(null);
-  useEffect(() => {
-      Axios.get("http://localhost:5000/get_data").then((response) => {
-          setData(response.data["onion"]);
-          console.log(response.data);
-      });
-  }, []);
+  // const [Data, setData] = useState([]);
+  // useEffect(() => {
+  //     Axios.get("http://localhost:5000/get_data").then((response) => {
+  //         points.push({ x: -3, y: response.data["onion"][0]});
+  //         points.push({ x: -2, y: response.data["onion"][1]});
+  //         points.push({ x: -1, y: response.data["onion"][2]});
+  //         points.push({ x: 0, y: response.data["onion"][3]});
+  //         points.push({ x: 1, y: response.data["onion"][4]});
+  //         points.push({ x: 2, y: response.data["onion"][5]});
+  //         points.push({ x: 3, y: response.data["onion"][6]});
+  //       });
+  //     }, []);
+  // console.log(points);
   const priceData = [
     {
       color: "red",
       points: [
-        { x: "D-3", y: Data[0] },
-        { x: "D-2", y: Data[1] },
-        { x: "D-1", y: Data[2] },
-        { x: "D-0(today)", y: Data[3] },
-        { x: "D+1", y: Data[4] },
-        { x: "D+2", y: Data[5] },
-        { x: "D+3", y: Data[6] },
+        { x: -3, y:  13800},
+        { x: -2, y: 14000 },
+        { x: -1, y: 13600 },
+        { x: 0, y: 13200},
+        { x: 1, y: 14687},
+        { x: 2, y: 14494 },
+        { x: 3, y: 14962 },
       ],
     },
   ];
+  console.log(priceData);
+
   return (
     <Center>
       <Wrapper>

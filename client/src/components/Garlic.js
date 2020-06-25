@@ -18,13 +18,13 @@ export default function Garlic() {
     {
       color: "red",
       points: [
-        { x: "D-3", y: Data[0] },
-        { x: "D-2", y: Data[1] },
-        { x: "D-1", y: Data[2] },
-        { x: "D-0(today)", y: Data[3] },
-        { x: "D+1", y: Data[4] },
-        { x: "D+2", y: Data[5] },
-        { x: "D+3", y: Data[6] },
+        { x: -3, y:  31200},
+        { x: -2, y: 31200 },
+        { x: -1, y: 31200 },
+        { x: 0, y: 31200},
+        { x: 1, y: 30745},
+        { x: 2, y: 31214 },
+        { x: 3, y: 31220 },
       ],
     },
   ];

@@ -18,13 +18,13 @@ export default function Pepper() {
     {
       color: "red",
       points: [
-        { x: "D-3", y: Data[0] },
-        { x: "D-2", y: Data[1] },
-        { x: "D-1", y: Data[2] },
-        { x: "D-0(today)", y: Data[3] },
-        { x: "D+1", y: Data[4] },
-        { x: "D+2", y: Data[5] },
-        { x: "D+3", y: Data[6] },
+        { x: -3, y: 57400},
+        { x: -2, y: 56800 },
+        { x: -1, y: 55400 },
+        { x: 0, y: 53000},
+        { x: 1, y: 61944},
+        { x: 2, y: 59710 },
+        { x: 3, y: 62152 },
       ],
     },
   ];
