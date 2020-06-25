@@ -1,42 +1,48 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import LineChart from "react-linechart";
 import "../../node_modules/react-linechart/dist/styles.css";
 import styled from "styled-components";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
-export default class Garlic extends Component {
-  render() {
-    const data = [
-      {
-        color: "steelblue",
-        points: [
-          { x: -3, y: 12000 },
-          { x: -2, y: 13500 },
-          { x: -1, y: 14200 },
-          { x: 0, y: 14500 },
-          { x: 1, y: 13900 },
-          { x: 2, y: 13600 },
-          { x: 3, y: 14300 },
-        ],
-      },
-    ];
-    return (
-      <Center>
-        <Wrapper>
-          <h1>마늘</h1>
-          <LineChart width={1000} height={600} data={data} />
-        </Wrapper>
-        <StyledLink to="/pepper">
-          <StyledLeft />
-        </StyledLink>
+export default function Garlic() {
+  const [Data, setData] = useState(null);
+  useEffect(() => {
+      Axios.get("http://localhost:5000/get_data").then((response) => {
+          setData(response.data["garlic"]);
+          console.log(response.data);
+      });
+  }, []);
+  const priceData = [
+    {
+      color: "red",
+      points: [
+        { x: "D-3", y: Data[0] },
+        { x: "D-2", y: Data[1] },
+        { x: "D-1", y: Data[2] },
+        { x: "D-0(today)", y: Data[3] },
+        { x: "D+1", y: Data[4] },
+        { x: "D+2", y: Data[5] },
+        { x: "D+3", y: Data[6] },
+      ],
+    },
+  ];
+  return (
+    <Center>
+      <Wrapper>
+        <h1>마늘</h1>
+        <LineChart width={1000} height={600} data={priceData} />
+      </Wrapper>
+      <StyledLink to="/pepper">
+        <StyledLeft />
+      </StyledLink>
 
-        <StyledLink to="/onion">
-          <StyledRight />
-        </StyledLink>
-      </Center>
-    );
-  }
+      <StyledLink to="/onion">
+        <StyledRight />
+      </StyledLink>
+    </Center>
+  );
 }
 const Center = styled.div`
   text-align: center;

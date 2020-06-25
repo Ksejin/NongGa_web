@@ -4,7 +4,7 @@ import pymysql
 import config 
 import json
 import pandas as pd
-import keras
+# import keras
 import pickle
 import time
 
@@ -205,6 +205,15 @@ def predict():
         json.dump(data, make_file, ensure_ascii=False, indent="\t")
 
     return '0'
+
+@app.route('/get_data')
+def get_data():
+    with open('test.json') as json_file:
+        json_data = json.loads(json_file)
+        for i in json_data["pepper"]["lasso"]:
+            print(i)
+
+        #onion / garlic
 
 if __name__ == '__main__':
     conn = getConnection()

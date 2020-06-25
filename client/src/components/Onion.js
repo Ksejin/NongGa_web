@@ -1,42 +1,48 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import LineChart from "react-linechart";
 import "../../node_modules/react-linechart/dist/styles.css";
 import styled from "styled-components";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
-export default class Onion extends Component {
-  render() {
-    const data = [
-      {
-        color: "red",
-        points: [
-          { x: -3, y: 16000 },
-          { x: -2, y: 13500 },
-          { x: -1, y: 11200 },
-          { x: 0, y: 14500 },
-          { x: 1, y: 13200 },
-          { x: 2, y: 13100 },
-          { x: 3, y: 11300 },
-        ],
-      },
-    ];
-    return (
-      <Center>
-        <Wrapper>
-          <h1>양파</h1>
-          <LineChart width={1000} height={600} data={data} />
-        </Wrapper>
-        <StyledLink to="/garlic">
-          <StyledLeft />
-        </StyledLink>
+export default function Onion() {
+  const [Data, setData] = useState(null);
+  useEffect(() => {
+      Axios.get("http://localhost:5000/get_data").then((response) => {
+          setData(response.data["onion"]);
+          console.log(response.data);
+      });
+  }, []);
+  const priceData = [
+    {
+      color: "red",
+      points: [
+        { x: "D-3", y: Data[0] },
+        { x: "D-2", y: Data[1] },
+        { x: "D-1", y: Data[2] },
+        { x: "D-0(today)", y: Data[3] },
+        { x: "D+1", y: Data[4] },
+        { x: "D+2", y: Data[5] },
+        { x: "D+3", y: Data[6] },
+      ],
+    },
+  ];
+  return (
+    <Center>
+      <Wrapper>
+        <h1>양파</h1>
+        <LineChart width={1000} height={600} data={priceData} />
+      </Wrapper>
+      <StyledLink to="/garlic">
+        <StyledLeft />
+      </StyledLink>
 
-        <StyledLink to="/pepper">
-          <StyledRight />
-        </StyledLink>
-      </Center>
-    );
-  }
+      <StyledLink to="/pepper">
+        <StyledRight />
+      </StyledLink>
+    </Center>
+  );
 }
 const Center = styled.div`
   text-align: center;
